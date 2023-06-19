@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <p class="zoomBtnZone">
+    <button class="zoomOutBtn">-</button>
+    <button class="originalBtn">100%</button>
+    <button class="zoomInBtn">+</button>
+  </p>
+  <p class="fontSize">16px</p>
+  <div id="wrap">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic accusantium placeat necessitatibus voluptas, dolore provident iure laborum eveniet aliquam rem quod iusto. Aspernatur exercitationem voluptatibus, fuga sint dignissimos esse numquam!
+  </div>
+
+  <script>
+    // let currentFontSize = $('#wrap').css('fontSize');
+    // let fontSizeNum = parseFloat(currentFontSize);
+
+    // $('.zoomOutBtn').on('click', () => {
+    //   --fontSizeNum;
+
+    //   $('#wrap').css('fontSize', fontSizeNum + 'px');
+    //   $('.fontSize').text(fontSizeNum+'px')
+    // });
+
+    // $('.zoomInBtn').on('click', () => {
+    //   ++fontSizeNum;
+
+    //   $('#wrap').css('fontSize', fontSizeNum + 'px');
+    //   $('.fontSize').text(fontSizeNum+'px')
+    // });
+
+    // $('.originalBtn').on('click', () => {
+    //   fontSizeNum = 16;
+
+    //   $('#wrap').css('fontSize', fontSizeNum + 'px');
+    //   $('.fontSize').text(fontSizeNum+'px')
+    // });
+
+    let currentFontSize = $('#wrap').css('fontSize');
+    let fontSizeNum = parseFloat(currentFontSize);
+    let isBtnClicking = false;
+    let interval;
+    let speed = 300;  // 초기 속도
+    let acceleration = 5; // 가속도
+
+    $('.zoomOutBtn').on('mousedown', () => {
+      isBtnClicking = true;
+      clearInterval(interval);
+      interval = setInterval(() => {
+        decreaseSize();
+        speed -= acceleration;
+
+        if(speed <= 5){speed = 5;}
+      }, speed);
+    });
+    $('.zoomOutBtn').on('mouseup', () => {
+      if(isBtnClicking){
+        isBtnClicking = false;
+        clearInterval(interval);
+        speed = 300;
+      }
+    });
+
+    function decreaseSize() {
+      --fontSizeNum;
+
+      $('#wrap').css('fontSize', fontSizeNum + 'px');
+      $('.fontSize').text(fontSizeNum+'px')
+    }
+
+    $('.zoomInBtn').on('mousedown', () => {
+      isBtnClicking = true;
+      clearInterval(interval);
+      interval = setInterval(() => {
+        increaseSize();
+        speed -= acceleration;
+
+        if(speed <= 5){speed = 5;}
+      }, speed);
+    });
+    $('.zoomInBtn').on('mouseup', () => {
+      isBtnClicking = false;
+      clearInterval(interval);
+      speed = 300;
+    });
+
+    function increaseSize () {
+      ++fontSizeNum;
+
+      $('#wrap').css('fontSize', fontSizeNum + 'px');
+      $('.fontSize').text(fontSizeNum+'px')
+    }
+
+    $('.originalBtn').on('click', () => {
+      fontSizeNum = 16;
+
+      $('#wrap').css('fontSize', fontSizeNum + 'px');
+      $('.fontSize').text(fontSizeNum+'px');
+      speed = 300;
+    });
+
+  </script>
+</body>
+</html>
