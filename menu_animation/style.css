@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #050f2c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle {
+  position: relative;
+  background-color: transparent;  /* 투명 */
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.menu-toggle .menu-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+.menu-icon span{
+  display: block;
+  position: relative;
+  width: 40px;
+  height: 3px;
+  background-color: #fff;
+  transition: background-color 0.35s 0s ease-out;
+}
+
+.menu-icon span::before,
+.menu-icon span::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 3px;
+  background-color: #fff;
+  transition: top 0.2s 0.4s ease-out,left 0.2s 0.2s ease-out, right 0.2s 0.2s ease-out, width 0.2s 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.menu-icon span::before {
+  top: 12px;
+  left: 20px;
+
+}
+
+.menu-icon span::after {
+  top: -12px;
+  right: 20px;
+}
+
+.menu-toggle.active .menu-icon span{
+  background-color: transparent;
+}
+
+.menu-toggle.active .menu-icon span::before,
+.menu-toggle.active .menu-icon span::after {
+  top: 0;
+  width: 40px;
+  transition: top 0.2s ease-out, left 0.2s 0.2s ease-out, right 0.2s 0.2s ease-out, width 0.2s 0.2s ease-out, transform 0.2s 0.4s ease-out;
+}
+
+.menu-toggle.active .menu-icon span::before {
+  left: 0;
+  transform: rotate3d(0 , 0, 1, 45deg);
+}
+
+.menu-toggle.active .menu-icon span::after {
+  right: 0;
+  transform: rotate3d(0 , 0, 1, -45deg);
+}
