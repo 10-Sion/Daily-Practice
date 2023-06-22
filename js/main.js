@@ -25,8 +25,27 @@
   */
 
     /*터치 슬라이드 비주얼 영역*/
-  
+    $(document).ready(() => {
+      $('.swipe').css('visibility','visible')
+      $('.touch_bannerSwipe-wrap').css({
+        width: '1003px',
+        height: '263px'
+      })
+
+      $('.touch_bannerSwipe-wrap').bxSlider({
+        auto: true,
+        speed: 1000,
+        pager:true,
+        wrapperClass:'sliderwrap',
+        slideHeight: 200
+        });
+
+
+      });
+
       
+
+
 
       
     /*비주얼 이전, 다음 버튼*/
@@ -43,7 +62,13 @@
     */
     
     /*롤링 버튼 배너*/
-
+    $('.autoSlide').bxSlider({
+      auto: true,
+      speed: 4000,
+      pager:true,
+      autoControls: true,
+      stopAutoOnClick: true,
+      });
   
     
     /*
@@ -83,7 +108,39 @@
     
   
     /*탭메뉴*/
+      const $tabBtn1 = $('.tab_btn1 a img');
+      const $tabBtn2 = $('.tab_btn2 a img');
+      const $tabBtn3 = $('.tab_btn3 a img');
 
+      $tabBtn1.on('click', tabBtn1)
+                          .on('mouseover', tabBtn1)
+                          .on('focus', tabBtn1)
+
+      function tabBtn1() {
+        $('.tabFirst').css('display','block');
+        $('.tabSecond').css('display','none');
+        $('.tabThird').css('display','none');
+      };
+
+      $tabBtn2.on('click', tabBtn2)
+                          .on('mouseover', tabBtn2)
+                          .on('focus', tabBtn2)
+
+      function tabBtn2() {
+        $('.tabFirst').css('display','none');
+        $('.tabSecond').css('display','block');
+        $('.tabThird').css('display','none');
+      };
+
+      $tabBtn3.on('click', tabBtn3)
+                          .on('mouseover', tabBtn3)
+                          .on('focus', tabBtn3)
+
+      function tabBtn3() {
+        $('.tabFirst').css('display','none');
+        $('.tabSecond').css('display','none');
+        $('.tabThird').css('display','block');
+      };
 
   //-----------------------------------------------------------
     
@@ -93,7 +150,13 @@
   */
     /* 베스트북 슬라이더 */
 
-    
+      $('#best_bg ul').bxSlider({
+        minSlides: 3,
+        maxSlides:5,
+        slideWidth: 120,
+        slideMargin: 30
+        
+      });
   
     //-----------------------------------------------------------
 
@@ -128,8 +191,24 @@
     */
     
     /*팝업 연동*/
+      $('#pop area').eq(0).on("click", () => {
+        $('#pop_wrap').hide()
+      })
 
+      $('#pop area').eq(1).on("click", () => {
+        $('#pop_wrap').hide()
+        $.cookie('pop','no',1)
+      })
 
+      $(document).ready(() => {
+        let cookie = $.cookie('pop');
+
+        if(cookie == 'no') {
+          $('#pop_wrap').hide();
+        } else {
+          $('#pop_wrap').show();
+        }
+      })
 
     //크롬(Chrome)브라우저로 쿠키를 확인하는 방법을 알아보도록 해요. 
   //  - 개발자도구(F12) 를 연후 Appliecation -> Storage -> Cookies 에서 확인 가능하다.
