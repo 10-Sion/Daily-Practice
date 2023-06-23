@@ -62,14 +62,96 @@
     */
     
     /*롤링 버튼 배너*/
-    $('.autoSlide').bxSlider({
+    let slider = $('.autoSlide').bxSlider({
       auto: true,
       speed: 4000,
       pager:true,
       autoControls: true,
       stopAutoOnClick: true,
+      
       });
-  
+
+      // let selectedBtn = [
+      //   'images/pop_btn_1_over.gif',
+      //   'images/pop_btn_2_over.gif',
+      //   'images/pop_btn_3_over.gif',
+      //   'images/pop_btn_4_over.gif'
+      // ];
+      // let unSelectedBtn = [
+      //   'images/pop_btn_1_out.gif',
+      //   'images/pop_btn_2_out.gif',
+      //   'images/pop_btn_3_out.gif',
+      //   'images/pop_btn_4_out.gif'
+      // ];
+
+
+      
+      $(document).ready(() => {
+      const img = [
+        { // 각 버튼 선택과 미선택시 이미지 구분
+          selected: 'images/pop_btn_1_over.gif',
+          unselected: 'images/pop_btn_1_out.gif'
+        },
+        {
+          selected: 'images/pop_btn_2_over.gif',
+          unselected: 'images/pop_btn_2_out.gif'
+        },
+        {
+          selected: 'images/pop_btn_3_over.gif',
+          unselected: 'images/pop_btn_3_out.gif'
+        },
+        {
+          selected: 'images/pop_btn_4_over.gif',
+          unselected: 'images/pop_btn_4_out.gif'
+        }
+      ];
+
+      // 버튼 4개에 roll_btn 클래스 부여중
+      // 버튼 클릭 시 해당 슬라이드 이동
+      $('.roll_btn').on('click', function() {
+        var index = $(this).index('.roll_btn');
+        slider.goToSlide(index);
+
+        // 버튼 클릭 시 해당 버튼이 선택된 버튼인지를 구분
+        $('.roll_btn').each(function(i) {
+          let imageSrc = (i === index) ? 
+                          img[i].selected : 
+                          img[i].unselected;
+
+          // 삼항 결과에 따른 이미지 속성값 변경
+          $(this).find('img').attr('src', imageSrc);
+        });
+      });
+
+        // 자동재생 버튼이미지
+        const playImg = [
+          {
+            selected: 'images/pop_btn_play_on.gif',
+            unselected: 'images/pop_btn_play_off.gif'
+          },
+          {
+            selected: 'images/pop_btn_stop_on.gif',
+            unselected: 'images/pop_btn_stop_off.gif'
+          }
+        ];
+        
+        // 자동재생 버튼 클릭 시 실행, 정지
+        // 해당 위치 이미지의 변경
+        $('.playBtn').on('click', () => {
+        slider.startAuto();
+        $('.playBtn img').attr('src',playImg[0].selected)
+        $('.stopBtn img').attr('src',playImg[1].unselected)
+      })
+      
+      $('.stopBtn').on('click', () => {
+        slider.stopAuto();
+        $('.playBtn img').attr('src',playImg[0].unselected)
+        $('.stopBtn img').attr('src',playImg[1].selected)
+      })
+    });
+
+
+      
     
     /*
     autoPlay 함수가 4초 간격으로 호출되어 1~4번 버튼이 순차적으로 강제로 클릭되어 자동으로 배너가 바뀝니다.
